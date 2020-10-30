@@ -36,6 +36,15 @@ RSpec.describe ThreadSafeUniquenessRecord do
         end.twice
         expect(uniqueness_record.find_or_create!).to eq(model)
       end
+
+      context 'when MAX_TRIES is reached' do
+        it 'throws exception' do
+          expect(model_klass).to receive(:find_or_create_by!).with({}) do
+            raise error
+          end.exactly(3)
+          expect { uniqueness_record.find_or_create! }.to raise_exception(error)
+        end
+      end
     end
 
     context 'when raises ActiveRecord::RecordInvalid in thread race' do

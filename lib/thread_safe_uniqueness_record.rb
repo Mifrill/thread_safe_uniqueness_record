@@ -35,15 +35,17 @@ module ThreadSafeUniquenessRecord
       ActiveRecord::RecordNotUnique
     ].freeze
 
+    attr_accessor :model_klass, :attributes, :attempts
+
     def initialize(model_klass:, attributes:)
       self.model_klass = model_klass
       self.attributes = attributes
+      self.attempts = 0
     end
 
     def find_or_create!
-      attempts = 0
-      with_retry(attempts: attempts) do
-        attempts += 1
+      with_retry do
+        self.attempts += 1
         ActiveRecord::Base.transaction(requires_new: true) do
           model_klass.find_or_create_by!(attributes)
         end
@@ -52,9 +54,7 @@ module ThreadSafeUniquenessRecord
 
     private
 
-    attr_accessor :model_klass, :attributes
-
-    def with_retry(attempts:)
+    def with_retry
       yield
     rescue *ERRORS => e
       raise e if attempts >= MAX_TRIES
