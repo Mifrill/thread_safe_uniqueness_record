@@ -1,0 +1,6 @@
+Documentation:
+  Enabled: false
+Layout/LineLength:
+  Max: 120
+Metrics/BlockLength:
+  Max: 120
