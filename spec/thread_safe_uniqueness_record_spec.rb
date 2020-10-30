@@ -5,13 +5,13 @@ RSpec.describe ThreadSafeUniquenessRecord do
     expect(ThreadSafeUniquenessRecord::VERSION).not_to be nil
   end
 
-  describe ThreadSafeUniquenessRecord::Executer do
+  describe ThreadSafeUniquenessRecord::FindOrCreateBy do
     class ApplicationRecord < ActiveRecord::Base
       self.abstract_class = true
     end
 
-    subject(:uniqueness_record) do
-      described_class.new(
+    subject(:uniqueness_record_find_or_create!) do
+      described_class.call(
         model_klass: model_klass,
         attributes: attributes
       )
@@ -30,7 +30,7 @@ RSpec.describe ThreadSafeUniquenessRecord do
           call_count += 1
           call_count == 1 ? (raise error) : model
         end.twice
-        expect(uniqueness_record.find_or_create!).to eq(model)
+        expect(uniqueness_record_find_or_create!).to eq(model)
       end
 
       context 'when MAX_TRIES is reached' do
@@ -38,7 +38,7 @@ RSpec.describe ThreadSafeUniquenessRecord do
           expect(model_klass).to receive(:find_or_create_by!).with({}) do
             raise error
           end.exactly(3)
-          expect { uniqueness_record.find_or_create! }.to raise_exception(error)
+          expect { uniqueness_record_find_or_create! }.to raise_exception(error)
         end
       end
     end
@@ -80,7 +80,7 @@ RSpec.describe ThreadSafeUniquenessRecord do
           end
         end.twice
         expect do
-          expect(uniqueness_record.find_or_create!).to eq(model_klass.first)
+          expect(uniqueness_record_find_or_create!).to eq(model_klass.first)
         end.to not_change { model_klass.count }
       end
     end
