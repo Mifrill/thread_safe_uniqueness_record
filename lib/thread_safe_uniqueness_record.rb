@@ -1,5 +1,7 @@
-require "thread_safe_uniqueness_record/version"
-require "active_record"
+# frozen_string_literal: true
+
+require 'thread_safe_uniqueness_record/version'
+require 'active_record'
 
 module ThreadSafeUniquenessRecord
   class Error < StandardError; end
@@ -30,7 +32,7 @@ module ThreadSafeUniquenessRecord
     MAX_TRIES = 3
     ERRORS = [
       UniquenessValidationError,
-      ActiveRecord::RecordNotUnique,
+      ActiveRecord::RecordNotUnique
     ].freeze
 
     def initialize(model_klass:, attributes:)

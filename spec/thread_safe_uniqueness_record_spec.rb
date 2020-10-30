@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'nulldb_rspec'
 
 RSpec.describe ThreadSafeUniquenessRecord do
-  it "has a version number" do
+  it 'has a version number' do
     expect(ThreadSafeUniquenessRecord::VERSION).not_to be nil
   end
 
@@ -30,7 +32,7 @@ RSpec.describe ThreadSafeUniquenessRecord do
         call_count = 0
         expect(model_klass).to receive(:find_or_create_by!).with({}) do
           call_count += 1
-          (call_count == 1) ? (raise error) : model
+          call_count == 1 ? (raise error) : model
         end.twice
         expect(uniqueness_record.find_or_create!).to eq(model)
       end
@@ -51,7 +53,7 @@ RSpec.describe ThreadSafeUniquenessRecord do
       let(:model_klass) { FakeUniquenessRecord }
       let(:attributes) do
         {
-          field: 'value',
+          field: 'value'
         }
       end
 
@@ -72,7 +74,9 @@ RSpec.describe ThreadSafeUniquenessRecord do
             model_klass.find_by!(attributes)
           end
         end.twice
-        expect(uniqueness_record.find_or_create!).to eq(model_klass.first)
+        expect do
+          expect(uniqueness_record.find_or_create!).to eq(model_klass.first)
+        end.to change { model_klass.count }.from(1).to(2)
       end
     end
   end
