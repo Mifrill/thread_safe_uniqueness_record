@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe ThreadSafeUniquenessRecord do
   it 'has a version number' do
     expect(ThreadSafeUniquenessRecord::VERSION).not_to be nil

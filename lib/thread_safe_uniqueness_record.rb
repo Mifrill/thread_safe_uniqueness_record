@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'thread_safe_uniqueness_record/version'
 require 'thread_safe_uniqueness_record/find_or_create_by'
 require 'active_record'

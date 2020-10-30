@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative 'lib/thread_safe_uniqueness_record/version'
 
 Gem::Specification.new do |spec|

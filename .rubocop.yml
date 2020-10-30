@@ -7,3 +7,5 @@ Metrics/BlockLength:
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - "spec/**/*"
+Style/FrozenStringLiteralComment:
+  Enabled: false

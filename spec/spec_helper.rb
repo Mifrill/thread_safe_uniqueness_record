@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'bundler/setup'
 require 'thread_safe_uniqueness_record'
 require 'benchmark'
