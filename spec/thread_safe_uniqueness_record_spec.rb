@@ -82,7 +82,7 @@ RSpec.describe ThreadSafeUniquenessRecord do
         end.twice
         expect do
           expect(uniqueness_record.find_or_create!).to eq(model_klass.first)
-        end.to change { model_klass.count }.from(1).to(2)
+        end.to not_change { model_klass.count }
       end
     end
   end
