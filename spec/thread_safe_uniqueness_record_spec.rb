@@ -64,7 +64,7 @@ RSpec.describe ThreadSafeUniquenessRecord do
       it 'founds by second attempt' do
         expect { model_klass.create!(attributes) }.to change { model_klass.count }.from(0).to(1)
         call_count = 0
-        expect(model_klass).to receive(:find_or_create_by!).with({ field: 'value' }) do
+        expect(model_klass).to receive(:find_or_create_by!).with(hash_including(field: 'value')) do
           call_count += 1
           if call_count == 1
             model_klass.create!(attributes)
