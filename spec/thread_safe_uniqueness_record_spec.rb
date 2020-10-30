@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
-require 'nulldb_rspec'
-
 RSpec.describe ThreadSafeUniquenessRecord do
   it 'has a version number' do
     expect(ThreadSafeUniquenessRecord::VERSION).not_to be nil
   end
 
   describe ThreadSafeUniquenessRecord::Executer do
-    include NullDB::RSpec::NullifiedDatabase
 
     class ApplicationRecord < ActiveRecord::Base
       self.abstract_class = true

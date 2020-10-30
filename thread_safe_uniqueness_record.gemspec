@@ -28,7 +28,6 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'activerecord'
 
-  spec.add_development_dependency 'activerecord-nulldb-adapter'
   spec.add_development_dependency 'byebug'
   spec.add_development_dependency 'rspec', '~> 3.8'
 end
