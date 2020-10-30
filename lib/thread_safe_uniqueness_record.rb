@@ -1,6 +1,7 @@
 require 'thread_safe_uniqueness_record/version'
 require 'thread_safe_uniqueness_record/find_or_create_by'
 require 'active_record'
+require 'concurrent'
 
 module ThreadSafeUniquenessRecord
   class Error < StandardError; end
@@ -19,11 +20,11 @@ module ThreadSafeUniquenessRecord
   ].freeze
 
   def self.with_retry
-    attempts ||= 0
+    attempts ||= Concurrent::ThreadLocalVar.new(0)
     yield
   rescue *ERRORS => e
-    attempts += 1
-    raise e if attempts >= MAX_TRIES
+    attempts.value += 1
+    raise e if attempts.value >= MAX_TRIES
 
     retry
   end

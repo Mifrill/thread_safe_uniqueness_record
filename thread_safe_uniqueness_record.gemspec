@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'activerecord'
+  spec.add_runtime_dependency 'concurrent-ruby'
 
   spec.add_development_dependency 'byebug'
   spec.add_development_dependency 'rspec', '~> 3.8'
