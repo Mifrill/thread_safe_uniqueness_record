@@ -6,7 +6,6 @@ RSpec.describe ThreadSafeUniquenessRecord do
   end
 
   describe ThreadSafeUniquenessRecord::Executer do
-
     class ApplicationRecord < ActiveRecord::Base
       self.abstract_class = true
     end
