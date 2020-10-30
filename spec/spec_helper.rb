@@ -1,5 +1,7 @@
 require "bundler/setup"
 require "thread_safe_uniqueness_record"
+require "benchmark"
+require "byebug"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
