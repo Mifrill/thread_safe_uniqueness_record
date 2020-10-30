@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Mifrill/thread_safe_uniqueness_record.svg?branch=master)](https://travis-ci.org/Mifrill/thread_safe_uniqueness_record)
+[![CircleCI](https://circleci.com/gh/Mifrill/thread_safe_uniqueness_record.svg?style=svg)](https://app.circleci.com/pipelines/github/Mifrill/thread_safe_uniqueness_record)
 
 # ThreadSafeUniquenessRecord
 
