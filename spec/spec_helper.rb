@@ -15,4 +15,7 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')
+  ActiveRecord::Schema.verbose = false
 end
