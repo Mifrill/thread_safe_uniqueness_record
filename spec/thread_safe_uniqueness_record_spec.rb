@@ -4,8 +4,10 @@ RSpec.describe ThreadSafeUniquenessRecord do
   end
 
   describe ThreadSafeUniquenessRecord::FindOrCreateBy do
-    class ApplicationRecord < ActiveRecord::Base
-      self.abstract_class = true
+    let(:application_record) do
+      Class.new(ActiveRecord::Base) do
+        self.abstract_class = true
+      end
     end
 
     subject(:uniqueness_record_find_or_create!) do
@@ -15,7 +17,7 @@ RSpec.describe ThreadSafeUniquenessRecord do
       )
     end
 
-    let(:model_klass) { ApplicationRecord }
+    let(:model_klass) { application_record }
     let(:model) { instance_double model_klass }
     let(:attributes) { {} }
 
@@ -50,7 +52,7 @@ RSpec.describe ThreadSafeUniquenessRecord do
         end
         migration.add_index :fake_uniqueness_records, :field, unique: true
 
-        stub_const('FakeUniquenessRecord', Class.new(ApplicationRecord))
+        stub_const('FakeUniquenessRecord', Class.new(application_record))
       end
 
       let(:model_klass) { FakeUniquenessRecord }
@@ -81,12 +83,27 @@ RSpec.describe ThreadSafeUniquenessRecord do
       context 'when creation failed with not "RecordInvalid" reason' do
         let(:attributes) { { field: nil } }
 
-        it 'raise reason exception without attempts' do
+        it 'raises proper exception without attempts' do
           migration = ActiveRecord::Migration.new
           migration.verbose = false
           migration.change_column_null :fake_uniqueness_records, :field, false
           expect(model_klass).to receive(:find_or_create_by!).with(hash_including(field: nil)).once.and_call_original
           expect { uniqueness_record_find_or_create! }.to raise_exception(ActiveRecord::NotNullViolation)
+        end
+      end
+
+      context 'when Validation failed by not "taken" reason' do
+        let(:application_record) do
+          Class.new(ActiveRecord::Base) do
+            self.abstract_class = true
+            validates :field, presence: true
+          end
+        end
+        let(:attributes) { { field: '' } }
+
+        it 'raises RecordInvalid exception without attempts' do
+          expect(model_klass).to receive(:find_or_create_by!).with(hash_including(field: '')).once.and_call_original
+          expect { uniqueness_record_find_or_create! }.to raise_exception(ActiveRecord::RecordInvalid)
         end
       end
     end
