@@ -54,11 +54,7 @@ RSpec.describe ThreadSafeUniquenessRecord do
       end
 
       let(:model_klass) { FakeUniquenessRecord }
-      let(:attributes) do
-        {
-          field: 'value'
-        }
-      end
+      let(:attributes) { { field: 'value' } }
 
       after do
         migration = ActiveRecord::Migration.new
@@ -80,6 +76,18 @@ RSpec.describe ThreadSafeUniquenessRecord do
         expect do
           expect(uniqueness_record_find_or_create!).to eq(model_klass.first)
         end.to not_change { model_klass.count }
+      end
+
+      context 'when creation failed with not "RecordInvalid" reason' do
+        let(:attributes) { { field: nil } }
+
+        it 'raise reason exception without attempts' do
+          migration = ActiveRecord::Migration.new
+          migration.verbose = false
+          migration.change_column_null :fake_uniqueness_records, :field, false
+          expect(model_klass).to receive(:find_or_create_by!).with(hash_including(field: nil)).once.and_call_original
+          expect { uniqueness_record_find_or_create! }.to raise_exception(ActiveRecord::NotNullViolation)
+        end
       end
     end
   end
