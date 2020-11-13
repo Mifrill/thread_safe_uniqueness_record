@@ -19,9 +19,9 @@ module ThreadSafeUniquenessRecord
     ActiveRecord::RecordNotUnique
   ].freeze
 
-  def self.with_retry
+  def self.with_retry(&block)
     attempts ||= Concurrent::ThreadLocalVar.new(0)
-    yield
+    block.call
   rescue *ERRORS => e
     attempts.value += 1
     raise e if attempts.value >= MAX_TRIES
