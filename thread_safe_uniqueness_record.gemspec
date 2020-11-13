@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Aleksey Strizhak']
   spec.email         = ['alexei.mifrill.strizhak@gmail.com']
 
-  spec.summary       = 'Thread safe creation of unique ActiveRecord'
-  spec.description   = 'The preventer of thread race conditions for ActiveRecord unique model creations'
+  spec.summary       = 'Thread safe creator of unique ActiveRecord model'
+  spec.description   = 'Prevents of thread race conditions for ActiveRecord unique model creations'
   spec.homepage      = 'https://github.com/Mifrill/thread_safe_uniqueness_record.git'
   spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
