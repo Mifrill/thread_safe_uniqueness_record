@@ -1,4 +1,4 @@
-RSpec.describe ThreadSafeUniquenessRecord do
+describe ThreadSafeUniquenessRecord do
   it 'has a version number' do
     expect(ThreadSafeUniquenessRecord::VERSION).not_to be nil
   end
