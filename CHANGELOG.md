@@ -1,3 +1,7 @@
+[0.1.3]: https://github.com/mifrill/thread_safe_uniqueness_record/compare/v0.1.2...v0.1.3
+
+- FIX: add files to gem-release / required_ruby_version => 2.6 / cleanup README.md
+
 [0.1.2]: https://github.com/mifrill/thread_safe_uniqueness_record/compare/v0.1.1...v0.1.2
 
 ## [0.1.2] ##

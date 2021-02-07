@@ -10,12 +10,13 @@ Gem::Specification.new do |spec|
   spec.description   = 'Prevents of thread race conditions for ActiveRecord unique model creations'
   spec.homepage      = 'https://github.com/Mifrill/thread_safe_uniqueness_record.git'
   spec.license       = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.6.0')
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['changelog_uri'] = 'https://github.com/Mifrill/thread_safe_uniqueness_record/blob/master/CHANGELOG.md'
 
   spec.require_paths = ['lib']
+  spec.files         = Dir['{lib}/**/*'] + %w[LICENSE README.md]
 
   spec.add_runtime_dependency 'activerecord'
   spec.add_runtime_dependency 'concurrent-ruby'
