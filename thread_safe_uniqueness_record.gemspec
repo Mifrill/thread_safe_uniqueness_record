@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.metadata['changelog_uri'] = 'https://github.com/Mifrill/thread_safe_uniqueness_record/blob/master/CHANGELOG.md'
 
   spec.require_paths = ['lib']
-  spec.files         = Dir['{lib}/**/*'] + %w[LICENSE README.md]
+  spec.files         = Dir['{lib}/**/*'] + %w[LICENSE.txt]
 
   spec.add_runtime_dependency 'activerecord'
   spec.add_runtime_dependency 'concurrent-ruby'
